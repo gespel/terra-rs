@@ -2,7 +2,7 @@ mod core;
 use core::terra::Terra;
 
 fn main() {
-    let t = Terra::new("tester.tif");
+    let t = Terra::new("tester2-out.tif");
     t.render_debug_png("debug.png").unwrap();
 
     for y in 0..t.height {
