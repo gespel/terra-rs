@@ -4,3 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+geo-types = "0.7.18"
+geotiff = "0.1.0"
+tiff = "0.10.3"
+image = "0.25.8"
