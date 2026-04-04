@@ -52,23 +52,28 @@ impl Terra {
 
         for y in 0..self.height {
             for x in 0..self.width {
-                let idx = (y as usize * self.width as usize) + x as usize;
-                let v = self.pixels[idx] as f32;
-                let t = ((v - min as f32) / range).clamp(0.0, 1.0);
+                if let Some(v) = self.get_pixel(x, y) {
+                    let t = ((v as f32 - min as f32) / range).clamp(0.0, 1.0);
+                    // simple heatmap: blue -> green -> yellow -> red
+                    /*let (r, g, b) = if t < 0.33 {
+                        let k = t / 0.33;
+                        (0_u8, (k * 255.0) as u8, (255.0 - k * 255.0) as u8)
+                    } else if t < 0.66 {
+                        let k = (t - 0.33) / 0.33;
+                        ((k * 255.0) as u8, 255_u8, 0_u8)
+                    } else {
+                        let k = (t - 0.66) / 0.34;
+                        (255_u8, (255.0 - k * 255.0) as u8, 0_u8)
+                    };
 
-                // simple heatmap: blue -> green -> yellow -> red
-                let (r, g, b) = if t < 0.33 {
-                    let k = t / 0.33;
-                    (0_u8, (k * 255.0) as u8, (255.0 - k * 255.0) as u8)
-                } else if t < 0.66 {
-                    let k = (t - 0.33) / 0.33;
-                    ((k * 255.0) as u8, 255_u8, 0_u8)
-                } else {
-                    let k = (t - 0.66) / 0.34;
-                    (255_u8, (255.0 - k * 255.0) as u8, 0_u8)
-                };
+                    img.put_pixel(x, y, Rgb([r, g, b]));*/
+                    //println!("{}", t);
+                    let b = t * 255_f32;
+                    img.put_pixel(x, y, Rgb([0, 0, b as u8]));
+                }
+                
 
-                img.put_pixel(x, y, Rgb([r, g, b]));
+                
             }
         }
 
